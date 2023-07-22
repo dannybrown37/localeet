@@ -19,12 +19,12 @@ DIFFICULTY_MAP = {
 
 @click.command()
 @click.option(
-    '--max_difficulty', '--max', '-m',
+    '--max_difficulty', '--max',
     help='Max difficulty allowed',
     type=click.Choice(list(DIFFICULTY_MAP.keys())),
 )
 @click.option(
-    '--min_difficulty', '--min', '-m',
+    '--min_difficulty', '--min',
     help='Min difficulty allowed',
     type=click.Choice(list(DIFFICULTY_MAP.keys())),
 )
