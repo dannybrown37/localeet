@@ -1,9 +1,11 @@
 from pathlib import Path
 
+import pytest
+
 from localeet.get_leetcode_problem import (
     choose_a_valid_question,
     get_question_data,
-    output_python_file,
+    output_code_file,
     parse_question_details,
     query_all_questions,
 )
@@ -63,14 +65,28 @@ def test_parse_question_details(two_sum_details_json, two_sum_essentials):
     assert parse_question_details(two_sum_details_json) == two_sum_essentials
 
 
-def test_output_python_file(two_sum_essentials, sample_two_sum_python_file):
+@pytest.mark.parametrize(
+        ('language', 'extension'),
+        [
+            ('python', 'py'),
+            ('rust', 'rs'),
+            ('golang', 'go'),
+        ],
+)
+def test_output_python_file(
+        two_sum_essentials,
+        language,
+        extension,
+    ):
+    with Path(f'tests/data/two_sum.{extension}').open() as f:
+        expected = f.read()
     path = Path('.')
-    new_file = path / 'two_sum.py'
-    output_path = output_python_file(path, two_sum_essentials)
-    assert output_path == 'two_sum.py'
+    new_file = path / f'two_sum.{extension}'
+    output_path = output_code_file(path, two_sum_essentials, language)
+    assert output_path == f'two_sum.{extension}'
     with new_file.open() as f:
         test_file = f.read()
     try:
-        assert test_file == sample_two_sum_python_file
+        assert test_file == expected
     finally:
         new_file.unlink()
