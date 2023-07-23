@@ -42,8 +42,7 @@ def choose_a_valid_question(
             max_difficulty,
             min_difficulty,
         )
-    else:
-        return choice['stat'][SLUG_KEY]
+    return choice['stat'][SLUG_KEY]
 
 
 def get_question_data(question_slug: dict) -> dict:
