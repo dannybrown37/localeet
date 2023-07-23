@@ -26,7 +26,7 @@ create any needed directories in that path as well.
 
 ```
 localeet --output_path ~/leetcode
-localeet --path ~/leetcode/problems
+localeet --path problems
 localeet -o ~/leetcode/problems/2023-7-22
 ```
 
