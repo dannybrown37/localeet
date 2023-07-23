@@ -1,6 +1,7 @@
 """
 Entry point for CLI. Define and parse CLI arguments.
 """
+from os import environ as env
 from pathlib import Path
 
 import click
@@ -26,28 +27,29 @@ SUPPORTED_LANGUAGES = list(LANGUAGE_TO_EXTENSION.keys())
     '--max_difficulty', '--max',
     help='Max difficulty allowed',
     type=click.Choice(list(DIFFICULTY_MAP.keys())),
+    default=env.get('LOCALEET_DEFAULT_MAX_DIFFICULTY', 'hard'),
 )
 @click.option(
     '--min_difficulty', '--min',
     help='Min difficulty allowed',
     type=click.Choice(list(DIFFICULTY_MAP.keys())),
+    default=env.get('LOCALEET_DEFAULT_MIN_DIFFICULTY', 'easy'),
 )
 @click.option(
     '--output_path', '--path', '-o',
     help='Output path for code file created. Default is cwd. '
          'Will create new directories as needed',
-    default='.',
+    default=env.get('LOCALEET_DEFAULT_OUTPUT_PATH', '.'),
 )
 @click.option(
     '--code_editor_open_command', '--editor', '-e',
     help='Will open the specified editor on the created file. VSCode default.',
-    default='code',
+    default=env.get('LOCALEET_DEFAULT_CODE_EDITOR_OPEN_COMMAND', 'code'),
 )
 @click.option(
     '--programming_language', '--language', '-l',
     help='The programming language you want to use for your output file',
-    default='python3',
-
+    default=env.get('LOCALEET_DEFAULT_LANGUAGE', 'python3'),
 )
 def main(
         max_difficulty: str,
@@ -58,8 +60,8 @@ def main(
     ) -> None:
     """Entry point for CLI. Parse CLI arguments."""
 
-    max_difficulty = DIFFICULTY_MAP.get(max_difficulty, 3)
-    min_difficulty = DIFFICULTY_MAP.get(min_difficulty, 1)
+    max_difficulty = DIFFICULTY_MAP.get(max_difficulty)
+    min_difficulty = DIFFICULTY_MAP.get(min_difficulty)
 
     output_path = Path(output_path)
 
