@@ -16,10 +16,10 @@ localeet
 ```
 
 This will find a random question from LeetCode's free question set.
-It will create a Python file shell with the question description and
-other metadata in it in your current working directory. It will finally
-pop open a code editor (VSCode by default) with the new file opened in
-it.
+It will create a code file shell (Python by default) with the question
+description and other metadata in it in your current working directory.
+It will then pop open a code editor (VSCode by default) with the new
+file opened in it.
 
 Using any of these CLI args will use the output path provided, and
 create any needed directories in that path as well.
@@ -49,6 +49,49 @@ localeet --editor subl
 localeet --code_editor_open_command atom
 ```
 
+To specify a language other than Python, use one of the following CLI
+arg formats:
+
+```
+localeet --programming_language rust
+localeet --language go
+localeet -l ts
+```
+
+Valid language options:
+```
+c++
+cpp
+java
+python
+python3
+py
+c
+c#
+cs
+javascript
+js
+ruby
+rb
+swift
+go
+golang
+scala
+kotlin
+kt
+rust
+rs
+php
+typescript
+ts
+racket
+rkt
+erlang
+erl
+elixir
+ex
+dart
+```
 
 # contributions
 

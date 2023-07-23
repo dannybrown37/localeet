@@ -5,12 +5,18 @@ said question.
 """
 
 import random
+import re
 import subprocess
 from pathlib import Path
 from typing import Literal
 
 import requests
 from bs4 import BeautifulSoup
+
+from localeet.language_maps import (
+    LANGUAGE_TO_COMMENT,
+    LANGUAGE_TO_EXTENSION,
+)
 
 
 ROOT = 'https://leetcode.com'
@@ -117,6 +123,7 @@ def parse_question_details(question_data: dict) -> dict[str, str]:
     """Parse response from GraphQL down into data needed for output"""
     soup = BeautifulSoup(question_data['data']['question']['content'], 'lxml')
     return {
+        'code_snippets': question_data['data']['question']['codeSnippets'],
         'difficulty': question_data['data']['question']['difficulty'],
         'question_id': question_data['data']['question']['questionId'],
         'question': soup.get_text(),
@@ -125,25 +132,32 @@ def parse_question_details(question_data: dict) -> dict[str, str]:
     }
 
 
-def output_python_file(
+def output_code_file(
         output_path: Path,
         question_details: dict[str, str],
+        language: str,
     ) -> str:
     """Take question details and output a python file shell"""
-    difficulty, qid, question, test_case, title = (
+    difficulty, qid, question, snippets, test_case, title = (
         question_details['difficulty'],
         question_details['question_id'],
         question_details['question'],
+        question_details['code_snippets'],
         question_details['test_case'],
         question_details['title'],
     )
+    extension = LANGUAGE_TO_EXTENSION[language]
+    oc = LANGUAGE_TO_COMMENT[language]['open_block']
+    cc = LANGUAGE_TO_COMMENT[language]['close_block']
+    lc = LANGUAGE_TO_COMMENT[language]['line']
+    snippet = next(i for i in snippets if i['langSlug'] == language)['code']
     output_path.mkdir(parents=True, exist_ok=True)
-    file_name = f'{title.lower().replace(" ", "_").replace("-", "_")}.py'
+    regex = r'[-\s]+'  # replace spaces and hyphens with underscores
+    file_name = f'{re.sub(regex, "_", title.lower())}.{extension}'
     output_path = output_path / file_name
-    content = f'"""\n{qid} - {difficulty} - {title}\n\n{question}"""\n\n'
-    content += """def main():\n    ...\n\n"""
-    content += "if __name__ == '__main__':\n    main()\n"
-    content += '\n'.join([f'    # {d}' for d in test_case.split('\n')])
+    header = f'{oc}\n{qid} - {difficulty} - {title}\n\n{question}\n{cc}\n\n'
+    content = header + snippet + f'\n{lc} Example test case:\n'
+    content += '\n'.join([f'{lc} {d}' for d in test_case.split('\n')])
     content += '\n'
     with output_path.open('w') as f:
         f.write(content)
@@ -159,6 +173,7 @@ def run(
         min_difficulty: Literal[1, 2, 3],
         output_path: Path,
         code_editor_open_command: str,
+        programming_language: str,
     ) -> None:
     all_questions = query_all_questions()
     question_slug = choose_a_valid_question(
@@ -168,5 +183,9 @@ def run(
     )
     result = get_question_data(question_slug)
     question_details = parse_question_details(result)
-    output_path = output_python_file(output_path, question_details)
+    output_path = output_code_file(
+        output_path,
+        question_details,
+        programming_language,
+    )
     open_code_editor(code_editor_open_command, output_path)

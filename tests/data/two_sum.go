@@ -1,4 +1,4 @@
-"""
+/*
 1 - Easy - Two Sum
 
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
@@ -31,16 +31,11 @@ Only one valid answer exists.
 
  
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
-"""
+*/
 
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        
-# Example test case:
-# [2,7,11,15]
-# 9
+func twoSum(nums []int, target int) []int {
+    
+}
+// Example test case:
+// [2,7,11,15]
+// 9

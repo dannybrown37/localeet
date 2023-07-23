@@ -57,9 +57,3 @@ def two_sum_details_json() -> dict:
 def two_sum_essentials() -> dict:
     with Path('tests/data/two_sum_essentials.json').open() as f:
         return json.load(f)
-
-
-@pytest.fixture(scope='session')
-def sample_two_sum_python_file() -> dict:
-    with Path('tests/data/two_sum.py').open() as f:
-        return f.read()
