@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -8,15 +9,15 @@ class MockValue:
     """Allows any of a datatype to pass comparison within dictionary"""
     def __init__(
             self,
-            name='MOCK_VALUE',
-            data_type=None,
-            validator=None,
+            name: str = 'MOCK_VALUE',
+            data_type: type = None,
+            validator: callable = None,
         ) -> None:
         self.name = name
         self.data_type = data_type
         self.validator = validator
 
-    def __eq__(self, item):
+    def __eq__(self, item: Any) -> bool:  # noqa: ANN401
         if (
             (self.data_type and not isinstance(item, self.data_type)) or
             (self.validator and not self.validator(item))
@@ -24,7 +25,7 @@ class MockValue:
             return False
         return True
 
-    def __ne__(self, item):
+    def __ne__(self, item: Any) -> bool:  # noqa: ANN401
         return not self.__eq__(item)
 
     def __repr__(self) -> str:
@@ -59,6 +60,6 @@ def two_sum_essentials() -> dict:
 
 
 @pytest.fixture(scope='session')
-def sample_two_sum_python_file():
+def sample_two_sum_python_file() -> dict:
     with Path('tests/data/two_sum.py').open() as f:
         return f.read()

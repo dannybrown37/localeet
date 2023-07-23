@@ -4,13 +4,25 @@ Tests that version number has increased from PyPI-deployed version.
 
 import importlib
 import sys
+from os import environ as env
 from pathlib import Path
 
+import pytest
 import requests
 
 import localeet
 
+RUNNING_LOCALLY = env.get('CI') is None and env.get('PRE_COMMIT') is None
+SKIP_REASON = """
+Version number must be updated prior to deploying a
+new version to PyPI. Run this test when committing
+new code and in CI, but don't run on a simple call
+of `pytest tests`, as tests should pass by default
+when pulling down the latest version.
+"""
 
+
+@pytest.mark.skipif(RUNNING_LOCALLY, reason=SKIP_REASON)
 def test_version_has_been_updated() -> None:
     """Ensure latest version is greater than latest published version"""
     pypi_version = get_pypi_version()
@@ -24,7 +36,8 @@ def test_version_has_been_updated() -> None:
 def get_pypi_version() -> str:
     """Return latest localeet version published to PyPI"""
     try:
-        response = requests.get('https://pypi.org/pypi/localeet/json')
+        pypi_url = 'https://pypi.org/pypi/localeet/json'
+        response = requests.get(pypi_url, timeout=5)
         response.raise_for_status()
         data = response.json()
         return data['info']['version']

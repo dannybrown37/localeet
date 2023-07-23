@@ -67,6 +67,7 @@ localeet --min HARD
 ## feature ideas
 
 * Support creating files for programming languages other than Python
+* Pop open code editor + support configurable editor command
 * Add commitizen for auto version updating
 * Support submitting responses to LeetCode via CLI as well
 * Whatever your imagination holds
