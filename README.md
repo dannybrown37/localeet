@@ -93,6 +93,19 @@ ex
 dart
 ```
 
+## overriding defaults
+
+If you want to set a different default value permanently, set it in your
+environment like in these examples:
+
+```
+export LOCALEET_DEFAULT_MAX_DIFFICULTY=medium
+export LOCALEET_DEFAULT_MIN_DIFFICULTY=medium
+export LOCALEET_DEFAULT_OUTPUT_PATH=./leetcode
+export LOCALEET_DEFAULT_CODE_EDITOR_OPEN_COMMAND=vi
+export LOCALEET_DEFAULT_LANGUAGE=cpp
+```
+
 # contributions
 
 ## local setup

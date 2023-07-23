@@ -9,6 +9,7 @@ from localeet.get_leetcode_problem import (
     parse_question_details,
     query_all_questions,
 )
+from localeet.language_maps import LANGUAGE_TO_EXTENSION
 
 
 NUMBER_OF_QUESTIONS_WHEN_WRITING = 2787
@@ -65,19 +66,12 @@ def test_parse_question_details(two_sum_details_json, two_sum_essentials):
     assert parse_question_details(two_sum_details_json) == two_sum_essentials
 
 
-@pytest.mark.parametrize(
-        ('language', 'extension'),
-        [
-            ('python', 'py'),
-            ('rust', 'rs'),
-            ('golang', 'go'),
-        ],
-)
+@pytest.mark.parametrize('language', ['python', 'rust', 'golang'])
 def test_output_python_file(
         two_sum_essentials,
         language,
-        extension,
     ):
+    extension = LANGUAGE_TO_EXTENSION[language]
     with Path(f'tests/data/two_sum.{extension}').open() as f:
         expected = f.read()
     path = Path('.')
@@ -85,8 +79,8 @@ def test_output_python_file(
     output_path = output_code_file(path, two_sum_essentials, language)
     assert output_path == f'two_sum.{extension}'
     with new_file.open() as f:
-        test_file = f.read()
+        new_file_contents = f.read()
     try:
-        assert test_file == expected
+        assert new_file_contents == expected
     finally:
         new_file.unlink()
