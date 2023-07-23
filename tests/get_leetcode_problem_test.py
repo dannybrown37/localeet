@@ -9,10 +9,13 @@ from localeet.get_leetcode_problem import (
 )
 
 
+NUMBER_OF_QUESTIONS_WHEN_WRITING = 2787
+
+
 def test_query_all_questions(any_int):
     """Test that query for question list works"""
     result = query_all_questions()
-    assert len(result) >= 2787  # assuming number never goes down..
+    assert len(result) >= NUMBER_OF_QUESTIONS_WHEN_WRITING
     assert result[-1] == {  # assuming order never changes...
         'difficulty': {'level': 1},
         'frequency': 0,
@@ -66,5 +69,7 @@ def test_output_python_file(two_sum_essentials, sample_two_sum_python_file):
     output_python_file(path, two_sum_essentials)
     with new_file.open() as f:
         test_file = f.read()
-    assert test_file == sample_two_sum_python_file
-    new_file.unlink()
+    try:
+        assert test_file == sample_two_sum_python_file
+    finally:
+        new_file.unlink()

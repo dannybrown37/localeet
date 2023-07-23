@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set CI environment variable
+        run: echo "CI=true" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -31,4 +34,4 @@ jobs:
         run: pip install .[dev]
 
       - name: Run ruff
-        run: ruff src
+        run: ruff src tests

@@ -4,13 +4,13 @@ parameters and then output a local Python file to work on
 said question.
 """
 
-
 import random
 from pathlib import Path
 from typing import Literal
 
 import requests
 from bs4 import BeautifulSoup
+
 
 ROOT = 'https://leetcode.com'
 API_URL = f'{ROOT}/api/problems/all/'
@@ -143,6 +143,7 @@ def output_python_file(
     content += """def main():\n    ..."""
     content += "\n\nif __name__ == '__main__':\n    main()\n"
     content += '\n'.join(['    # d' for d in test_case.split('\n')])
+    content += '\n'
     with output_path.open('w') as f:
         f.write(content)
     print(f'Created file for #{qid}: {title}')
@@ -162,4 +163,3 @@ def run(
     result = get_question_data(question_slug)
     question_details = parse_question_details(result)
     output_python_file(output_path, question_details)
-
