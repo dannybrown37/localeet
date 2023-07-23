@@ -20,6 +20,7 @@ localeet = "localeet:main"
 [project.optional-dependencies]
 dev = [
   "ruff==0.0.263",
+  "pre-commit==4.1.0",
 ]
 test = [
   "pytest",
