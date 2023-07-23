@@ -120,7 +120,6 @@ dart
 
 ## feature ideas
 
-* Support creating files for programming languages other than Python
 * Add commitizen for auto version updating
 * Support submitting responses to LeetCode via CLI as well
 * Whatever your imagination holds
