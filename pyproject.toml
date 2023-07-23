@@ -26,6 +26,10 @@ test = [
   "pytest",
   "pytest-icdiff",
 ]
+pypi = [
+  "twine",
+  "hatchling",
+]
 
 [build-system]
 requires = ["hatchling"]
