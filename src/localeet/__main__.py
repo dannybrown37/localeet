@@ -7,6 +7,7 @@ import click
 
 from localeet.get_leetcode_problem import run
 
+
 DIFFICULTY_MAP = {
     'easy': 1,
     'medium': 2,
@@ -34,10 +35,20 @@ DIFFICULTY_MAP = {
          'Will create new directories as needed',
     default='.',
 )
-def main(max_difficulty: str, min_difficulty: str, output_path: str) -> None:
+@click.option(
+    '--code_editor_open_command', '--editor', '-e',
+    help='Will open the specified editor on the created file. VSCode default.',
+    default='code',
+)
+def main(
+        max_difficulty: str,
+        min_difficulty: str,
+        output_path: str,
+        code_editor_open_command: str,
+    ) -> None:
     """Entry point for CLI. Parse CLI arguments."""
     max_difficulty = DIFFICULTY_MAP.get(max_difficulty, 3)
     min_difficulty = DIFFICULTY_MAP.get(min_difficulty, 1)
     output_path = Path(output_path)
 
-    run(max_difficulty, min_difficulty, output_path)
+    run(max_difficulty, min_difficulty, output_path, code_editor_open_command)
