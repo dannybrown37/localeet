@@ -66,7 +66,8 @@ def test_parse_question_details(two_sum_details_json, two_sum_essentials):
 def test_output_python_file(two_sum_essentials, sample_two_sum_python_file):
     path = Path('.')
     new_file = path / 'two_sum.py'
-    output_python_file(path, two_sum_essentials)
+    output_path = output_python_file(path, two_sum_essentials)
+    assert output_path == 'two_sum.py'
     with new_file.open() as f:
         test_file = f.read()
     try:

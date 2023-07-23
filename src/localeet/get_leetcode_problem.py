@@ -5,6 +5,7 @@ said question.
 """
 
 import random
+import subprocess
 from pathlib import Path
 from typing import Literal
 
@@ -127,7 +128,7 @@ def parse_question_details(question_data: dict) -> dict[str, str]:
 def output_python_file(
         output_path: Path,
         question_details: dict[str, str],
-    ) -> None:
+    ) -> str:
     """Take question details and output a python file shell"""
     difficulty, qid, question, test_case, title = (
         question_details['difficulty'],
@@ -146,13 +147,18 @@ def output_python_file(
     content += '\n'
     with output_path.open('w') as f:
         f.write(content)
-    print(f'Created file for #{qid}: {title}')
+    return str(output_path)
+
+
+def open_code_editor(command: str, file_path: str) -> None:
+    subprocess.run([command, file_path])  # noqa: S603
 
 
 def run(
         max_difficulty: Literal[1, 2, 3],
         min_difficulty: Literal[1, 2, 3],
         output_path: Path,
+        code_editor_open_command: str,
     ) -> None:
     all_questions = query_all_questions()
     question_slug = choose_a_valid_question(
@@ -162,4 +168,5 @@ def run(
     )
     result = get_question_data(question_slug)
     question_details = parse_question_details(result)
-    output_python_file(output_path, question_details)
+    output_path = output_python_file(output_path, question_details)
+    open_code_editor(code_editor_open_command, output_path)
