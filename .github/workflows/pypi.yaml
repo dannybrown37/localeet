@@ -16,11 +16,13 @@ jobs:
       with:
         python-version: 3.9
     - name: Install distribution dependencies
-      run: pip install .[pypi]
+      run: |
+        pip install -U pip
+        pip install .[pypi]
     - name: Build distribution
       run: hatchling build
     - name: Publish to PyPI
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      run: twine upload --repository localeet dist/*
+      run: twine upload dist/*

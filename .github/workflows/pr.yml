@@ -20,7 +20,9 @@ jobs:
           python-version: 3.9
 
       - name: Install localeet test dependencies
-        run: pip install .[test]
+        run: |
+          pip install -U pip
+          pip install .[test]
 
       - name: Run tests
         run: pytest tests -s -vvl
