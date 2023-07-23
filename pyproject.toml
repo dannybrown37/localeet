@@ -89,7 +89,8 @@ select = [
     "YTT",  # https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
 ]
 ignore = [
-  "S311",  # we are not using randomness for cryptography
+  "S311",  # not using randomness for cryptography
+  "S101",  # assert is awesome
 ]
 show-fixes = true
 target-version = "py39"

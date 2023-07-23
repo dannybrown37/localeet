@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from localeet.get_leetcode_problem import (
-    query_all_questions,
     choose_a_valid_question,
     get_question_data,
-    parse_question_details,
     output_python_file,
+    parse_question_details,
+    query_all_questions,
 )
 
 
@@ -30,7 +30,7 @@ def test_query_all_questions(any_int):
             'question__title_slug': 'two-sum',
             'question_id': 1,
             'total_acs': any_int,
-            'total_submitted': any_int
+            'total_submitted': any_int,
         },
         'status': None,
     }
@@ -64,7 +64,7 @@ def test_output_python_file(two_sum_essentials, sample_two_sum_python_file):
     path = Path('.')
     new_file = path / 'two_sum.py'
     output_python_file(path, two_sum_essentials)
-    with open(new_file) as f:
+    with new_file.open() as f:
         test_file = f.read()
     assert test_file == sample_two_sum_python_file
     new_file.unlink()
