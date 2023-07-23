@@ -141,9 +141,9 @@ def output_python_file(
     file_name = f'{title.lower().replace(" ", "_").replace("-", "_")}.py'
     output_path = output_path / file_name
     content = f'"""\n{qid} - {difficulty} - {title}\n\n{question}"""\n\n'
-    content += """def main():\n    ..."""
-    content += "\n\nif __name__ == '__main__':\n    main()\n"
-    content += '\n'.join(['    # d' for d in test_case.split('\n')])
+    content += """def main():\n    ...\n\n"""
+    content += "if __name__ == '__main__':\n    main()\n"
+    content += '\n'.join([f'    # {d}' for d in test_case.split('\n')])
     content += '\n'
     with output_path.open('w') as f:
         f.write(content)

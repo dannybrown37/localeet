@@ -11,6 +11,10 @@ pip install localeet
 
 # usage
 
+```
+localeet
+```
+
 This will find a random question from LeetCode's free question set.
 It will create a Python file shell with the question description and
 other metadata in it in your current working directory. It will finally
