@@ -41,10 +41,16 @@ def test_choose_a_valid_question():
     assert isinstance(result, str)
 
 
-def test_get_question_data(two_sum_details_json, any_int, any_json_str):
+def test_get_question_data(
+        two_sum_details_json,
+        any_int,
+        any_json_str,
+        any_str,
+    ):
     two_sum_details_json['data']['question'].update({
-        'likes': any_int,
         'dislikes': any_int,
+        'judgeType': any_str,
+        'likes': any_int,
         'stats': any_json_str,
     })
     assert get_question_data('two-sum') == two_sum_details_json

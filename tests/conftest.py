@@ -31,6 +31,11 @@ def any_int():
 
 
 @pytest.fixture(scope='session')
+def any_str():
+    return MockValue('STR', str)
+
+
+@pytest.fixture(scope='session')
 def any_json_str():
     return MockValue('JSON_STR', str, lambda x: json.loads(x))
 
