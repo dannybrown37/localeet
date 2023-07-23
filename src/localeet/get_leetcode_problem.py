@@ -29,7 +29,7 @@ def choose_a_valid_question(
         max_difficulty: Literal[1, 2, 3],
         min_difficulty: Literal[1, 2, 3],
     ) -> dict:
-    """Recurse until a valid question is found"""
+    """Recurse until a valid question is found, return its slug"""
     choice = random.choice(questions)
     if any((
         choice['paid_only'],
@@ -37,17 +37,21 @@ def choose_a_valid_question(
         choice['difficulty']['level'] > max_difficulty,
         choice['stat'].get(SLUG_KEY) is None,
     )):
-        choose_a_valid_question(questions, max_difficulty, min_difficulty)
-        return None
-    return choice['stat']
+        return choose_a_valid_question(
+            questions,
+            max_difficulty,
+            min_difficulty,
+        )
+    else:
+        return choice['stat'][SLUG_KEY]
 
 
-def get_question_text_for_question(question_metadata: dict) -> dict:
+def get_question_data(question_slug: dict) -> dict:
     """Get all metadata available for question via GraphQL query"""
     return requests.post(GQL_URL, timeout=10, json={
         'operationName': 'questionData',
         'variables': {
-            'titleSlug': question_metadata[SLUG_KEY],
+            'titleSlug': question_slug,
         },
         'query': """query questionData($titleSlug: String!) {
                         question(titleSlug: $titleSlug) {
@@ -151,12 +155,12 @@ def run(
         output_path: Path,
     ) -> None:
     all_questions = query_all_questions()
-    question_metadata = choose_a_valid_question(
+    question_slug = choose_a_valid_question(
         all_questions,
         max_difficulty,
         min_difficulty,
     )
-    result = get_question_text_for_question(question_metadata)
+    result = get_question_data(question_slug)
     question_details = parse_question_details(result)
     output_python_file(output_path, question_details)
 

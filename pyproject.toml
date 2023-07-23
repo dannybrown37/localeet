@@ -21,6 +21,10 @@ localeet = "localeet:main"
 dev = [
   "ruff==0.0.263",
 ]
+test = [
+  "pytest",
+  "pytest-icdiff",
+]
 
 [build-system]
 requires = ["hatchling"]
