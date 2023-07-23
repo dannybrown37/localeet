@@ -27,6 +27,7 @@ repos:
     hooks:
       - id: pytest
         name: Pytest
+        always_run: true
         entry: pytest tests -s -vvl
         language: system
         types: [python]
