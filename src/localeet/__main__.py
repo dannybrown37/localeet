@@ -3,10 +3,12 @@ Entry point for CLI. Define and parse CLI arguments.
 """
 from os import environ as env
 from pathlib import Path
+from typing import Optional
 
 import click
 
 from localeet.get_leetcode_problem import run
+from localeet.get_version import get_version
 from localeet.language_maps import LANGUAGE_TO_EXTENSION
 
 
@@ -50,14 +52,22 @@ SUPPORTED_LANGUAGES = list(LANGUAGE_TO_EXTENSION.keys())
     help='The programming language you want to use for your output file',
     default=env.get('LOCALEET_DEFAULT_LANGUAGE', 'python3'),
 )
+@click.option(
+    '--version', '-v',
+    help='Print the current version of localeet',
+    is_flag=True,
+)
 def main(
         max_difficulty: str,
         min_difficulty: str,
         output_path: str,
         code_editor_open_command: str,
         programming_language: str,
-    ) -> None:
+        version: bool,
+    ) -> Optional[str]:
     """Entry point for CLI. Parse CLI arguments."""
+    if version:
+        return get_version()
 
     max_difficulty = DIFFICULTY_MAP.get(max_difficulty)
     min_difficulty = DIFFICULTY_MAP.get(min_difficulty)
@@ -80,3 +90,4 @@ def main(
         code_editor_open_command,
         language,
     )
+    return None

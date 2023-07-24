@@ -28,6 +28,13 @@ Examples of output files:
 
 ## CLI Args
 
+See the installed version of localeet with:
+
+```
+localeet --version
+localeet -v
+```
+
 Using any of these CLI args will use the output path provided, and
 create any needed directories in that path as well.
 
@@ -98,6 +105,12 @@ erl
 elixir
 ex
 dart
+```
+
+Print the manual:
+
+```
+localeet --help
 ```
 
 ## overriding defaults
