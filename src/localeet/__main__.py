@@ -37,13 +37,12 @@ SUPPORTED_LANGUAGES = list(LANGUAGE_TO_EXTENSION.keys())
 )
 @click.option(
     '--output_path', '--path', '-o',
-    help='Output path for code file created. Default is cwd. '
-         'Will create new directories as needed',
+    help='Output path for code file. Will create new directories as needed.',
     default=env.get('LOCALEET_DEFAULT_OUTPUT_PATH', '.'),
 )
 @click.option(
     '--code_editor_open_command', '--editor', '-e',
-    help='Will open the specified editor on the created file. VSCode default.',
+    help='Will open the specified editor on the created file.',
     default=env.get('LOCALEET_DEFAULT_CODE_EDITOR_OPEN_COMMAND', 'code'),
 )
 @click.option(

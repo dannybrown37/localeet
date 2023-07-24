@@ -95,7 +95,7 @@ ignore = [
   "I001",  # I do not care for its sorting choices
 ]
 exclude = [
-  "tests/data/*",
+  "tests/data/two_sum.py",
 ]
 show-fixes = true
 target-version = "py39"

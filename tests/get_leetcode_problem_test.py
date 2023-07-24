@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -59,11 +60,23 @@ def test_get_question_data(
         'likes': any_int,
         'stats': any_json_str,
     })
-    assert get_question_data('two-sum') == two_sum_details_json
+    test_results = get_question_data('two-sum')
+    try:
+        assert test_results == two_sum_details_json
+    except AssertionError:
+        print('Saving details.json to compare differences')
+        with Path('details.json').open('w') as f:
+            json.dump(test_results, f, indent=4)
 
 
 def test_parse_question_details(two_sum_details_json, two_sum_essentials):
-    assert parse_question_details(two_sum_details_json) == two_sum_essentials
+    test_results = parse_question_details(two_sum_details_json)
+    try:
+        assert test_results  == two_sum_essentials
+    except AssertionError:
+        print('Saving essentials.json to compare differences')
+        with Path('essentials.json').open('w') as f:
+            json.dump(test_results, f, indent=4)
 
 
 @pytest.mark.parametrize('language', ['python', 'rust', 'golang'])
@@ -72,15 +85,18 @@ def test_output_python_file(
         language,
     ):
     extension = LANGUAGE_TO_EXTENSION[language]
-    with Path(f'tests/data/two_sum.{extension}').open() as f:
+    file_name = f'two_sum.{extension}'
+    with Path(f'tests/data/{file_name}').open() as f:
         expected = f.read()
     path = Path('.')
-    new_file = path / f'two_sum.{extension}'
+    new_file = path / file_name
     output_path = output_code_file(path, two_sum_essentials, language)
-    assert output_path == f'two_sum.{extension}'
     with new_file.open() as f:
         new_file_contents = f.read()
     try:
+        assert output_path == file_name
         assert new_file_contents == expected
-    finally:
+    except AssertionError:
+        print(f'Saving {file_name} to compare differences')
+    else:
         new_file.unlink()
