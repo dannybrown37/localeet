@@ -117,6 +117,7 @@ export LOCALEET_DEFAULT_LANGUAGE=cpp
     pip install -U pip
     pip install -e .[dev, test]
     pre-commit install
+    pytest tests -s -vv
 ```
 
 ## contribution process

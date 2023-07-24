@@ -122,11 +122,13 @@ def get_question_data(question_slug: dict) -> dict:
 def parse_question_details(question_data: dict) -> dict[str, str]:
     """Parse response from GraphQL down into data needed for output"""
     soup = BeautifulSoup(question_data['data']['question']['content'], 'lxml')
+    for code_tag in soup.find_all('code'):
+        code_tag.replace_with('`' + code_tag.text + '`')
     return {
         'code_snippets': question_data['data']['question']['codeSnippets'],
         'difficulty': question_data['data']['question']['difficulty'],
         'question_id': question_data['data']['question']['questionId'],
-        'question': soup.get_text(),
+        'question': soup.get_text().replace('\u00A0', ' '),
         'test_case': question_data['data']['question']['sampleTestCase'],
         'title': question_data['data']['question']['title'],
     }
@@ -158,6 +160,7 @@ def output_code_file(
     header = f'{oc}\n{qid} - {difficulty} - {title}\n\n{question}\n{cc}\n\n'
     content = header + snippet + f'\n{lc} Example test case:\n'
     content += '\n'.join([f'{lc} {d}' for d in test_case.split('\n')])
+    content = '\n'.join([c.rstrip() for c in content.split('\n')])
     content += '\n'
     with output_path.open('w') as f:
         f.write(content)
