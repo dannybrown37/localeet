@@ -21,6 +21,13 @@ description and other metadata in it in your current working directory.
 It will then pop open a code editor (VSCode by default) with the new
 file opened in it.
 
+Examples of output files:
+* [Python](https://github.com/dannybrown37/localeet/blob/main/tests/data/two_sum.py)
+* [Rust](https://github.com/dannybrown37/localeet/blob/main/tests/data/two_sum.rs)
+* [Go](https://github.com/dannybrown37/localeet/blob/main/tests/data/two_sum.go)
+
+## CLI Args
+
 Using any of these CLI args will use the output path provided, and
 create any needed directories in that path as well.
 
