@@ -108,3 +108,7 @@ inline-quotes = "single"
   "ANN001",  # no fixture annotations
   "ANN201",  # no return annotatons for test functions
 ]
+"src/localeet/__main__.py" = [
+  "PLR0913",  # CLI has lots of options and thus needs lots of args
+  "FBT001",  # boolean flags are cool
+]

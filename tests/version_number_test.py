@@ -11,6 +11,10 @@ import pytest
 import requests
 
 import localeet
+from localeet.get_version import get_version
+
+from conftest import MockValue
+
 
 RUNNING_LOCALLY = env.get('CI') is None and env.get('PRE_COMMIT') is None
 SKIP_REASON = """
@@ -31,6 +35,10 @@ def test_version_has_been_updated() -> None:
     sys.path.insert(0, str(project_dir))
     importlib.reload(localeet)
     assert localeet.__version__ > pypi_version
+
+
+def test_get_version(any_version: MockValue) -> None:
+    assert get_version() == any_version
 
 
 def get_pypi_version() -> str:

@@ -43,6 +43,16 @@ def any_str() -> MockValue:
 
 
 @pytest.fixture(scope='session')
+def any_version() -> MockValue:
+    parts_in_semantic_version = 3
+    return MockValue(
+        'VERSION_NUMBER',
+        str,
+        lambda x: len(x.split('.')) == parts_in_semantic_version,
+    )
+
+
+@pytest.fixture(scope='session')
 def any_json_str() -> MockValue:
     return MockValue('JSON_STR', str, lambda x: json.loads(x))
 

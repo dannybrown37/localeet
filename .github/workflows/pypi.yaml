@@ -15,6 +15,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    - name: Read version from __init__.py
+      run: |
+        version=$(grep "__version__" src/localeet/__init__.py | cut -d "'" -f 2)
+        echo "Version from __init__.py: $version"
+        echo "::set-output name=version::$version"
     - name: Install distribution dependencies
       run: |
         pip install -U pip
@@ -26,5 +31,16 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: twine upload dist/*
-    - name: Confirm can install
+    - name: pip install localeet
       run: pip install localeet
+    - name: Compare Versions
+      run: |
+        local_version=$(localeet --version)
+        echo "Local version: $local_version"
+        echo "GitHub Actions version: ${{ steps.localeet_version.outputs.stdout }}"
+        if [ "$local_version" = "${{ steps.localeet_version.outputs.stdout }}" ]; then
+          echo "Latest version successfully deployed and pip installed"
+        else
+          echo "Versions do not match! There was an issue with deployment"
+          exit 1
+        fi
