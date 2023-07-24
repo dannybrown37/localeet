@@ -15,11 +15,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-    - name: Read version from __init__.py
-      run: |
-        version=$(grep "__version__" src/localeet/__init__.py | cut -d "'" -f 2)
-        echo "Version from __init__.py: $version"
-        echo "::set-output name=version::$version"
     - name: Install distribution dependencies
       run: |
         pip install -U pip
@@ -33,12 +28,13 @@ jobs:
       run: twine upload dist/*
     - name: pip install localeet
       run: pip install localeet
-    - name: Compare Versions
+    - name: Compare Repo and Pip Versions
       run: |
-        local_version=$(localeet --version)
-        echo "Local version: $local_version"
-        echo "GitHub Actions version: ${{ steps.localeet_version.outputs.stdout }}"
-        if [ "$local_version" = "${{ steps.localeet_version.outputs.stdout }}" ]; then
+        repo_version=$(grep "__version__" src/localeet/__init__.py | cut -d "'" -f 2)
+        echo "Version from __init__.py: $repo_version"
+        pip_version=$(localeet --version)
+        echo "Local version: $pip_version"
+        if [[ $repo_version = $pip_version ]]; then
           echo "Latest version successfully deployed and pip installed"
         else
           echo "Versions do not match! There was an issue with deployment"
