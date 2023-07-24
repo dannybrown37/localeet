@@ -67,6 +67,7 @@ def test_get_question_data(
         print('Saving details.json to compare differences')
         with Path('details.json').open('w') as f:
             json.dump(test_results, f, indent=4)
+        raise
 
 
 def test_parse_question_details(two_sum_details_json, two_sum_essentials):
@@ -77,6 +78,7 @@ def test_parse_question_details(two_sum_details_json, two_sum_essentials):
         print('Saving essentials.json to compare differences')
         with Path('essentials.json').open('w') as f:
             json.dump(test_results, f, indent=4)
+        raise
 
 
 @pytest.mark.parametrize('language', ['python', 'rust', 'golang'])
@@ -98,5 +100,6 @@ def test_output_python_file(
         assert new_file_contents == expected
     except AssertionError:
         print(f'Saving {file_name} to compare differences')
+        raise
     else:
         new_file.unlink()

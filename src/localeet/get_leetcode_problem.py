@@ -7,6 +7,7 @@ said question.
 import random
 import re
 import subprocess
+import textwrap
 from pathlib import Path
 from typing import Literal
 
@@ -160,8 +161,15 @@ def output_code_file(
     header = f'{oc}\n{qid} - {difficulty} - {title}\n\n{question}\n{cc}\n\n'
     content = header + snippet + f'\n{lc} Example test case:\n'
     content += '\n'.join([f'{lc} {d}' for d in test_case.split('\n')])
-    content = '\n'.join([c.rstrip() for c in content.split('\n')])
-    content += '\n'
+    content = [c.rstrip() for c in content.split('\n')]
+    wrapped_content = []
+    for s in content:
+        if not s.strip():
+            wrapped_content.append('')
+            continue
+        wrapped_lines = textwrap.wrap(s, width=79)
+        wrapped_content.extend(wrapped_lines)
+    content = '\n'.join(wrapped_content) + '\n'
     with output_path.open('w') as f:
         f.write(content)
     return str(output_path)
