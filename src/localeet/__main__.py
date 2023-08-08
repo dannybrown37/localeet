@@ -50,6 +50,7 @@ SUPPORTED_LANGUAGES = list(LANGUAGE_TO_EXTENSION.keys())
 @click.option(
     '--programming_language', '--language', '-l',
     help='The programming language you want to use for your output file',
+    type=click.Choice(SUPPORTED_LANGUAGES),
     default=env.get('LOCALEET_DEFAULT_LANGUAGE', 'python3'),
 )
 @click.option(
