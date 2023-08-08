@@ -32,7 +32,7 @@ Constraints:
 Only one valid answer exists.
 
 
-Follow-up: Can you come up with an algorithm that is less than `O(n2) `time
+Follow-up: Can you come up with an algorithm that is less than `O(n2)` time
 complexity?
 """
 
@@ -47,3 +47,7 @@ class Solution(object):
 # Example test case:
 # [2,7,11,15]
 # 9
+
+# Suggestion to get started:
+# 1. write 5-10+ good test cases, including edge cases
+# 2. write code to take test cases and call the function

@@ -3,7 +3,8 @@ name = "localeet"
 dynamic = [
     "version",
 ]
-description = "A CLI tool to do LeetCode and LeetCode-like exercises"
+description = "A CLI tool to do LeetCode and LeetCode-like exercises locally"
+readme = "README.md"
 authors = [
     { name = "Danny Brown", email = "dannybrown37@gmail.com" }
 ]
@@ -13,6 +14,11 @@ dependencies = [
     "lxml",
     "click",
 ]
+
+[project.urls]
+homepage = 'https://pypi.org/project/localeet/'
+documentation = 'https://github.com/dannybrown37/localeet#localeet'
+repository = 'https://github.com/dannybrown37/localeet'
 
 [project.scripts]
 localeet = "localeet:main"
