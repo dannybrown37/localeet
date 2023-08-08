@@ -33,7 +33,7 @@ jobs:
         repo_version=$(grep "__version__" src/localeet/__init__.py | cut -d "'" -f 2)
         echo "Version from __init__.py: $repo_version"
         pip_version=$(localeet --version)
-        echo "Local version: $pip_version"
+        echo "Pip version: $pip_version"
         if [[ $repo_version = $pip_version ]]; then
           echo "Latest version successfully deployed and pip installed"
         else

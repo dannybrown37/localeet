@@ -31,6 +31,6 @@ repos:
         types: [python]
       - id: ruff
         name: Ruff
-        entry: ruff src tests --fix
+        entry: ruff src tests
         language: system
         types: [python]

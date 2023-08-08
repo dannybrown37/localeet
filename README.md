@@ -26,7 +26,7 @@ Examples of output files:
 * [Rust](https://github.com/dannybrown37/localeet/blob/main/tests/data/two_sum.rs)
 * [Go](https://github.com/dannybrown37/localeet/blob/main/tests/data/two_sum.go)
 
-## CLI Args
+## cli args
 
 See the installed version of localeet with:
 

@@ -161,6 +161,9 @@ def output_code_file(
     header = f'{oc}\n{qid} - {difficulty} - {title}\n\n{question}\n{cc}\n\n'
     content = header + snippet + f'\n{lc} Example test case:\n'
     content += '\n'.join([f'{lc} {d}' for d in test_case.split('\n')])
+    content += f'\n\n{lc} Suggestion to get started:'
+    content += f'\n{lc} 1. write 5-10+ good test cases, including edge cases'
+    content += f'\n{lc} 2. write code to take test cases and call the function'
     content = [c.rstrip() for c in content.split('\n')]
     wrapped_content = []
     for s in content:
