@@ -24,25 +24,3 @@ jobs:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
-
-
-      # - name: Set Up Python
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: 3.9
-
-      # - name: Install Dependencies
-      #   run: pip install .[cz]
-
-      # - name: Bump Version
-      #   run: |
-      #     cz bump --yes
-
-      # - name: Commit and Push Version Bump
-      #   run: |
-      #     git config --global user.name 'VersionBumper'
-      #     git config --global user.email ''
-      #     git add pyproject.toml
-      #     git add src/localeet/__init__.py
-      #     git commit -m "bump: version"
-      #     git push origin main
