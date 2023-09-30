@@ -36,10 +36,6 @@ pypi = [
   "twine",
   "hatchling",
 ]
-cz = [
-  "commitizen",
-  "cz-conventional-changelog",
-]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
