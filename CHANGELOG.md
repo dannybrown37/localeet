@@ -1,3 +1,9 @@
+## 0.2.2 (2023-09-30)
+
+### Fix
+
+- run bumpversion.yml before pypi.yml
+
 ## 0.2.1 (2023-09-30)
 
 ### Fix
