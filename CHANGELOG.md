@@ -1,3 +1,9 @@
+## 0.2.3 (2023-09-30)
+
+### Fix
+
+- remove block causing double pypi.yml trigger
+
 ## 0.2.2 (2023-09-30)
 
 ### Fix
