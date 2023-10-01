@@ -1,3 +1,9 @@
+## 0.2.4 (2023-10-01)
+
+### Fix
+
+- update CI scripts to run Publish to PyPI only once
+
 ## 0.2.3 (2023-09-30)
 
 ### Fix
