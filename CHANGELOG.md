@@ -1,3 +1,9 @@
+## 0.2.6 (2023-10-03)
+
+### Fix
+
+- remove setting of trigger flag
+
 ## 0.2.5 (2023-10-01)
 
 ### Fix
