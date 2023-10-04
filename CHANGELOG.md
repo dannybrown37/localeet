@@ -1,3 +1,9 @@
+## 0.2.9 (2023-10-04)
+
+### Fix
+
+- more github action tinkering
+
 ## 0.2.8 (2023-10-04)
 
 ### Fix
