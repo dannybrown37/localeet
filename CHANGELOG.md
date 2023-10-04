@@ -1,3 +1,9 @@
+## 0.2.10 (2023-10-04)
+
+### Fix
+
+- update from deprecated actions/setup-python@v2 to v3
+
 ## 0.2.9 (2023-10-04)
 
 ### Fix
