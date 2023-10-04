@@ -39,7 +39,7 @@ pypi = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.2.7"
+version = "0.2.8"
 version_files = [
     "src/localeet/__init__.py",
     "pyproject.toml:version",

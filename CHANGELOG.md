@@ -1,3 +1,9 @@
+## 0.2.8 (2023-10-04)
+
+### Fix
+
+- put bump version job into pypi.yml file
+
 ## 0.2.7 (2023-10-04)
 
 ### Fix
