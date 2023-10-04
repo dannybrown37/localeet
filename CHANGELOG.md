@@ -1,3 +1,9 @@
+## 0.2.12 (2023-10-04)
+
+### Fix
+
+- remove v prefix from tag wildcard
+
 ## 0.2.11 (2023-10-04)
 
 ### Fix
