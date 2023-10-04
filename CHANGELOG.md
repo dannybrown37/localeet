@@ -1,3 +1,9 @@
+## 0.2.11 (2023-10-04)
+
+### Fix
+
+- split files again, run publish on tag
+
 ## 0.2.10 (2023-10-04)
 
 ### Fix
